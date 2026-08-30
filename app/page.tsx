@@ -195,55 +195,94 @@ export default function Home() {
 
   return (
     <div className="bg-slate-950 min-h-screen">
-      {/* Navigation - STICKY */}
-      <nav className="fixed top-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-b border-cyan-500/20 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">◈</span>
+     {/* Navigation - STICKY MELHORADO */}
+<nav className="fixed top-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-b border-cyan-500/20 z-50">
+  <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    {/* Logo */}
+    <a href="/" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+      <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+        <span className="text-white font-bold text-lg">◈</span>
+      </div>
+      <h1 className="text-lg font-semibold text-white hidden sm:block">Novus</h1>
+    </a>
+
+    {/* Menu Links Desktop */}
+    <div className="hidden lg:flex items-center gap-8">
+      <a 
+        href="/" 
+        className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm"
+      >
+        Início
+      </a>
+      <a 
+        href="/projetos" 
+        className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm"
+      >
+        Projetos
+      </a>
+     <a href="/servicos" className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm">
+  Serviços
+</a>
+<a href="/about" className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm">
+  Sobre Nós
+</a>
+<a href="/equipa" className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm">
+  Equipa
+</a>
+<a href="/blog" className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm">
+  Blog
+</a>
+<a href="/contacto" className="text-gray-300 hover:text-cyan-400 transition font-semibold text-sm">
+  Contacte-nos
+</a>
+    </div>
+
+    {/* Right Section - Language + Mobile Menu */}
+    <div className="flex items-center gap-4">
+      {/* Language Selector */}
+      <div className="relative">
+        <button
+          onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-cyan-300 border border-cyan-500/50 hover:border-cyan-400 hover:bg-cyan-500/10 transition"
+        >
+          {language.toUpperCase()}
+          <span className={`text-xs transition-transform duration-300 ${langDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
+        </button>
+
+        {langDropdownOpen && (
+          <>
+            <div className="absolute right-0 mt-3 w-52 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
+              <div className="grid grid-cols-2 gap-1 p-3 max-h-80 overflow-y-auto">
+                {languages.map(lang => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code as Language)
+                      setLangDropdownOpen(false)
+                    }}
+                    className={`px-3 py-2.5 text-sm rounded-lg font-medium transition-all duration-200 ${
+                      language === lang.code
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50'
+                        : 'text-gray-300 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {lang.name}
+                  </button>
+                ))}
+              </div>
             </div>
-            <h1 className="text-lg font-semibold text-white hidden sm:block">Novus</h1>
-          </div>
+            <div className="fixed inset-0 z-40" onClick={() => setLangDropdownOpen(false)} />
+          </>
+        )}
+      </div>
 
-          {/* Language Selector - DROPDOWN MODERNO */}
-          <div className="relative">
-            <button
-              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-cyan-300 border border-cyan-500/50 hover:border-cyan-400 hover:bg-cyan-500/10 transition"
-            >
-              {language.toUpperCase()}
-              <span className={`text-xs transition-transform duration-300 ${langDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
-            </button>
-
-            {langDropdownOpen && (
-              <>
-                <div className="absolute right-0 mt-3 w-52 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
-                  <div className="grid grid-cols-2 gap-1 p-3 max-h-80 overflow-y-auto">
-                    {languages.map(lang => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          setLanguage(lang.code as Language)
-                          setLangDropdownOpen(false)
-                        }}
-                        className={`px-3 py-2.5 text-sm rounded-lg font-medium transition-all duration-200 ${
-                          language === lang.code
-                            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50'
-                            : 'text-gray-300 hover:text-white hover:bg-slate-800'
-                        }`}
-                      >
-                        {lang.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="fixed inset-0 z-40" onClick={() => setLangDropdownOpen(false)} />
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      {/* Mobile Menu Button */}
+      <button className="lg:hidden p-2 text-cyan-400 hover:bg-slate-800 rounded-lg transition">
+        ☰
+      </button>
+    </div>
+  </div>
+</nav>
 
       {/* HERO - INSPIRADO EM FRAMER + LUSION */}
       <section className="relative min-h-screen flex items-center justify-center pt-24 pb-20 overflow-hidden px-4 sm:px-6">
@@ -303,248 +342,321 @@ export default function Home() {
       </div>
       </section>
 
-                    {/* PROJECTS CAROUSEL - HORIZONTAL FLASH CARDS */}
-      <section className="relative py-32 px-4 sm:px-6 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="mb-16">
-            <div className="mb-4">
-              <p className="text-cyan-400 font-semibold text-sm tracking-widest uppercase">
-                Portfólio
-              </p>
-            </div>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
-              {t.projetos}
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-400 max-w-2xl">
-              {t.descProjetos}
-            </p>
-            <p className="text-sm text-cyan-400 mt-6">👉 Deslize ou use as setas (Hover para ver vídeos) →</p>
-          </div>
+                    {/* PROJECTS CAROUSEL - INFINITE LOOP */}
+<section className="relative py-32 px-4 sm:px-6 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <div className="mb-16">
+      <div className="mb-4">
+        <p className="text-cyan-400 font-semibold text-sm tracking-widest uppercase">
+          Portfólio
+        </p>
+      </div>
+      <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
+        {t.projetos}
+      </h2>
+      <p className="text-lg sm:text-xl text-gray-400 max-w-2xl">
+        {t.descProjetos}
+      </p>
+      <p className="text-sm text-cyan-400 mt-6">👉 Carrossel automático (Clique para mais) →</p>
+    </div>
 
-          {/* Carousel Container */}
-          <div className="relative group">
-           <div 
-  className="overflow-x-auto scrollbar-hide scroll-smooth flex gap-8"
-  id="projectsCarousel"
->
-              {projects.map((project) => (
-  <div key={`${project.id}`} className="flex-shrink-0 w-full sm:w-[28rem] snap-center group/card perspective">
-    <div className="relative h-96 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 hover:-rotate-1 active:scale-95">
-      
-      {/* Card Background - Preto Sólido */}
-      <div className="absolute inset-0 bg-black opacity-85 group-hover/card:opacity-100 transition-all duration-500" />
+    {/* Carousel Container */}
+    <div className="relative group">
+      <div 
+        className="overflow-hidden scroll-smooth"
+        id="projectsCarousel"
+      >
+        <div className="flex gap-8 animate-carousel">
+          {/* Duplicar projetos para loop infinito */}
+          {[...projects, ...projects].map((project, idx) => (
+            <a
+            
+              key={`${project.id}-${idx}`}
+              href={`/projetos/${project.slug}`}
+              className="flex-shrink-0 w-full sm:w-[28rem] snap-center group/card perspective"
+            >
+              <div className="relative h-96 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 hover:-rotate-1 active:scale-95">
+                
+                {/* Card Background */}
+                <div className="absolute inset-0 bg-black opacity-85 group-hover/card:opacity-100 transition-all duration-500" />
 
-                    {/* Card Background com Gradient */}
-                    <div className="absolute inset-0 bg-black opacity-85 group-hover/card:opacity-100 transition-all duration-500" />
+                {/* Animated Light Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover/card:opacity-30 transition-opacity duration-500">
+                  <div className="absolute -top-1/2 -right-1/2 w-96 h-96 bg-white rounded-full blur-3xl" />
+                </div>
 
-                    {/* Animated Light Effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover/card:opacity-30 transition-opacity duration-500">
-                      <div className="absolute -top-1/2 -right-1/2 w-96 h-96 bg-white rounded-full blur-3xl" />
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-between p-8 sm:p-10">
+                  
+                  {/* Top - Number */}
+                  <div className="flex justify-between items-start">
+                    <span className="text-7xl font-black text-white/20 group-hover/card:text-white/40 transition-colors">
+                      {project.number}
+                    </span>
+                    <span className="text-5xl transform group-hover/card:scale-125 group-hover/card:rotate-12 transition-transform duration-300">
+                      {project.icon}
+                    </span>
+                  </div>
+
+                  {/* Bottom - Info */}
+                  <div>
+                    <h3 className="text-3xl sm:text-4xl font-black text-white mb-3 group-hover/card:text-cyan-100 transition-colors">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-200 group-hover/card:text-white transition-colors mb-6 font-medium">
+                      {project.desc}
+                    </p>
+                    <div className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/card:translate-y-0">
+                      <span>Explorar</span>
+                      <span className="transform group-hover/card:translate-x-2 transition-transform">→</span>
                     </div>
-
-                    {/* Content */}
-                    <div className="relative z-10 h-full flex flex-col justify-between p-8 sm:p-10">
-                      
-                      {/* Top - Number */}
-                      <div className="flex justify-between items-start">
-                        <span className="text-7xl font-black text-white/20 group-hover/card:text-white/40 transition-colors">
-                          {project.number}
-                        </span>
-                        <span className="text-5xl transform group-hover/card:scale-125 group-hover/card:rotate-12 transition-transform duration-300">
-                          {project.icon}
-                        </span>
-                      </div>
-
-                      {/* Bottom - Info */}
-                      <div>
-                        <h3 className="text-3xl sm:text-4xl font-black text-white mb-3 group-hover/card:text-cyan-100 transition-colors">
-                          {project.name}
-                        </h3>
-                        <p className="text-sm sm:text-base text-gray-200 group-hover/card:text-white transition-colors mb-6 font-medium">
-                          {project.desc}
-                        </p>
-                        <div className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/card:translate-y-0">
-                          <span>Explorar</span>
-                          <span className="transform group-hover/card:translate-x-2 transition-transform">→</span>
-                        </div>
-                      </div>
-
-                      {/* Image Overlay - Aparece ao Hover */}
-                      {project.image && (
-                        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center rounded-3xl overflow-hidden z-20">
-                          <img
-                            src={project.image}
-                            alt={project.name}
-                            className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700"
-                          />
-                          {/* Gradient overlay para melhor legibilidade */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Border Animated */}
-                    <div className="absolute inset-0 border-2 border-white/0 group-hover/card:border-white/30 rounded-3xl transition-all duration-500" />
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Left Arrow Button */}
-            <button
-              onClick={() => {
-                const carousel = document.getElementById('projectsCarousel')
-                if (carousel) carousel.scrollLeft -= 350
-              }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-30 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all opacity-0 group-hover:opacity-100"
-            >
-              ←
-            </button>
+                {/* Image Overlay */}
+                {project.image && (
+                  <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center rounded-3xl overflow-hidden z-20">
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </div>
+                )}
 
-            {/* Right Arrow Button */}
-            <button
-              onClick={() => {
-                const carousel = document.getElementById('projectsCarousel')
-                if (carousel) carousel.scrollLeft += 350
-              }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-30 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all opacity-0 group-hover:opacity-100"
-            >
-              →
-            </button>
-
-            {/* Gradient Fade Left */}
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
-            
-            {/* Gradient Fade Right */}
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-20 pointer-events-none" />
-          </div>
+                {/* Border */}
+                <div className="absolute inset-0 border-2 border-white/0 group-hover/card:border-white/30 rounded-3xl transition-all duration-500" />
+              </div>
+            </a>
+          ))}
         </div>
+      </div>
 
-        {/* CSS for scrollbar hide */}
-        <style jsx>{`
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        `}</style>
-      </section>
-
-            {/* VIDEO SECTION - AUTO PLAY ON SCROLL */}
-      <section className="relative py-32 px-4 sm:px-6 bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <p className="text-cyan-400 font-semibold text-sm tracking-widest uppercase mb-4">
-              Tecnologia
-            </p>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
-              Inovação em Ação
-            </h2>
-            <p className="text-lg text-gray-400">
-              Explore a tecnologia que move a indústria
-            </p>
-          </div>
-
-          {/* Videos Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            {/* Video 1 - Energias Renováveis */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <h3 className="text-2xl font-bold text-white">Energias Renováveis</h3>
-              </div>
-            </div>
-
-            {/* Video 2 - Oil & Gas */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <h3 className="text-2xl font-bold text-white">Oil & Gas Solutions</h3>
-              </div>
-            </div>
-
-            {/* Video 3 - HVAC */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <h3 className="text-2xl font-bold text-white">HVAC Systems</h3>
-              </div>
-            </div>
-
-            {/* Video 4 - Industrial AI */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <h3 className="text-2xl font-bold text-white">Industrial AI</h3>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="bg-slate-900 border-t border-cyan-500/20 py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <h4 className="text-white font-semibold mb-4">Empresa</h4>
-              <p className="text-gray-400 text-sm">Novus Orbis Tech, Lda.</p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Contacto</h4>
-              <p className="text-gray-400 text-sm">hello@novusorbis.tech</p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Redes</h4>
-              <p className="text-gray-400 text-sm">LinkedIn • Twitter • Instagram</p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <p className="text-gray-400 text-sm">Privacidade • Termos</p>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-            <p>© 2024 Novus Orbis Tech. Todos os direitos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Gradient Fade Left */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
+      
+      {/* Gradient Fade Right */}
+      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-20 pointer-events-none" />
     </div>
+  </div>
+
+  {/* CSS Animation para Loop Infinito */}
+  <style jsx>{`
+    @keyframes carousel {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-28rem * ${projects.length} - ${projects.length * 32}px));
+      }
+    }
+
+    .animate-carousel {
+      animation: carousel 60s linear infinite;
+    }
+
+    .animate-carousel:hover {
+      animation-play-state: paused;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  `}</style>
+</section>
+
+           {/* VIDEO SECTION - IMAGES WITH PLAY BUTTON */}
+<section className="relative py-32 px-4 sm:px-6 bg-slate-950">
+  <div className="max-w-7xl mx-auto">
+    <div className="mb-16">
+      <p className="text-cyan-400 font-semibold text-sm tracking-widest uppercase mb-4">
+        Tecnologia
+      </p>
+      <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
+        Inovação em Ação
+      </h2>
+      <p className="text-lg text-gray-400">
+        Explore a tecnologia que move a indústria
+      </p>
+    </div>
+
+    {/* Videos Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      {/* Card 1 - Energias Renováveis */}
+      <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-all cursor-pointer">
+        <img
+          src="/projects/energias.jpeg"
+          alt="Energias Renováveis"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center group-hover:from-black/90 transition-all">
+          {/* Play Button */}
+          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-cyan-500 transition-all transform group-hover:scale-125">
+            <span className="text-3xl">▶</span>
+          </div>
+        </div>
+        {/* Title */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-2xl font-bold text-white">Energias Renováveis</h3>
+        </div>
+      </div>
+
+      {/* Card 2 - Oil & Gas */}
+      <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-all cursor-pointer">
+        <img
+          src="/projects/nexus.jpeg"
+          alt="Oil & Gas Solutions"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center group-hover:from-black/90 transition-all">
+          {/* Play Button */}
+          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-cyan-500 transition-all transform group-hover:scale-125">
+            <span className="text-3xl">▶</span>
+          </div>
+        </div>
+        {/* Title */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-2xl font-bold text-white">NEXUS AI Solutions</h3>
+        </div>
+      </div>
+
+      {/* Card 3 - HVAC */}
+      <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-all cursor-pointer">
+        <img
+          src="/projects/fluidez.jpeg"
+          alt="HVAC Systems"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center group-hover:from-black/90 transition-all">
+          {/* Play Button */}
+          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-cyan-500 transition-all transform group-hover:scale-125">
+            <span className="text-3xl">▶</span>
+          </div>
+        </div>
+        {/* Title */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-2xl font-bold text-white">FluiX Services</h3>
+        </div>
+      </div>
+
+      {/* Card 4 - Industrial AI */}
+      <div className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-all cursor-pointer">
+        <img
+          src="/projects/vetorh.jpeg"
+          alt="Industrial AI"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center group-hover:from-black/90 transition-all">
+          {/* Play Button */}
+          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-cyan-500 transition-all transform group-hover:scale-125">
+            <span className="text-3xl">▶</span>
+          </div>
+        </div>
+        {/* Title */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-2xl font-bold text-white">VETORH Platform</h3>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+   {/* FOOTER */}
+<footer className="bg-slate-900 border-t border-cyan-500/20 py-16 px-4 sm:px-6">
+  <div className="max-w-7xl mx-auto">
+    {/* Footer Content Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+      
+      {/* Sobre */}
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">◈</span>
+          </div>
+          <h3 className="text-white font-bold text-lg">Novus</h3>
+        </div>
+        <p className="text-gray-400 text-sm leading-relaxed">Soluções digitais inovadoras para transformar o futuro.</p>
+      </div>
+
+      {/* Links Úteis */}
+      <div>
+        <h4 className="text-white font-semibold mb-4">Links Úteis</h4>
+        <ul className="space-y-2">
+          <li><a href="/" className="text-gray-400 hover:text-cyan-400 transition text-sm">Início</a></li>
+          <li><a href="/projetos" className="text-gray-400 hover:text-cyan-400 transition text-sm">Projetos</a></li>
+          <li><a href="/contacto" className="text-gray-400 hover:text-cyan-400 transition text-sm">Contacte-nos</a></li>
+          <li><a href="/about" className="text-gray-400 hover:text-cyan-400 transition text-sm">Sobre Nós</a></li>
+        </ul>
+      </div>
+
+      {/* Contacto */}
+      <div>
+        <h4 className="text-white font-semibold mb-4">Contacto</h4>
+        <ul className="space-y-2">
+          <li>
+            <a href="mailto:novusorbistechlda@gmail.com" className="text-gray-400 hover:text-cyan-400 transition text-sm flex items-center gap-2">
+              📧 novusorbistechlda@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/244941285890" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition text-sm flex items-center gap-2">
+              📱 +244 941 285 890
+            </a>
+          </li>
+          <li>
+            <span className="text-gray-400 text-sm flex items-center gap-2">
+              📍 Luanda, Angola
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Redes Sociais */}
+      <div>
+        <h4 className="text-white font-semibold mb-4">Redes Sociais</h4>
+        <div className="flex gap-3">
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-800 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition text-white">
+            🔗
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-800 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition text-white">
+            🐙
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-800 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition text-white">
+            𝕏
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-800 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition text-white">
+            📷
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* Divider */}
+    <div className="border-t border-slate-800 mb-8"></div>
+
+    {/* Bottom Section */}
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+      <p>© 2024 Novus Orbis Tech, Lda. Todos os direitos reservados.</p>
+      <div className="flex gap-4">
+        <a href="#" className="hover:text-cyan-400 transition">Privacidade</a>
+        <a href="#" className="hover:text-cyan-400 transition">Termos de Uso</a>
+        <a href="#" className="hover:text-cyan-400 transition">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
   )
 }

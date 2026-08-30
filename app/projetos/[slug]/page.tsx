@@ -125,34 +125,48 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      {/* Scroll Content */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto space-y-20">
-          {/* Images */}
-          {project.images.map((img: string, idx: number) => (
-            <div 
-              key={`img-${idx}`}
-              data-item={idx}
-              className={`transition-all duration-700 ${visibleItems.includes(idx) ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <img src={`/projects/${slug}/${img}`} alt={`${project.name} ${idx + 1}`} className="w-full rounded-2xl" />
-            </div>
-          ))}
-
-          {/* Videos */}
-          {project.videos.map((vid: string, idx: number) => (
-            <div 
-              key={`vid-${idx}`}
-              data-item={project.images.length + idx}
-              className={`transition-all duration-700 ${visibleItems.includes(project.images.length + idx) ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <video autoPlay muted loop className="w-full rounded-2xl bg-black" playsInline>
-                <source src={`/projects/${slug}/${vid}`} type="video/mp4" />
-              </video>
-            </div>
-          ))}
+    {/* Scroll Content */}
+<section className="py-20 px-4">
+  <div className="max-w-7xl mx-auto space-y-16">
+    {/* Images */}
+    {project.images.map((img: string, idx: number) => (
+      <div 
+        key={`img-${idx}`}
+        data-item={idx}
+        className={`transition-all duration-700 flex justify-center ${visibleItems.includes(idx) ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="w-full max-w-2xl">
+          <img 
+            src={`/projects/${slug}/${img}`} 
+            alt={`${project.name} ${idx + 1}`} 
+            className="w-full rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow" 
+          />
         </div>
-      </section>
+      </div>
+    ))}
+
+    {/* Videos */}
+    {project.videos.map((vid: string, idx: number) => (
+      <div 
+        key={`vid-${idx}`}
+        data-item={project.images.length + idx}
+        className={`transition-all duration-700 flex justify-center ${visibleItems.includes(project.images.length + idx) ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="w-full max-w-2xl">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            className="w-full rounded-xl bg-black shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow" 
+            playsInline
+          >
+            <source src={`/projects/${slug}/${vid}`} type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* Footer */}
       <footer className="bg-slate-900 py-12 text-center text-gray-500 mt-20">
