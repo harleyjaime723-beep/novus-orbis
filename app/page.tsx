@@ -160,6 +160,7 @@ export default function Home() {
     { 
       id: 1, 
       name: 'VETORH', 
+      slug: 'vetorh',
       desc: t.vetorh, 
       icon: '🎯',
       number: '01',
@@ -176,6 +177,7 @@ export default function Home() {
     { 
       id: 3, 
       name: 'NEXUS AI', 
+      slug: 'nexus-ai',
       desc: t.nexus, 
       icon: '🤖',
       number: '03',
